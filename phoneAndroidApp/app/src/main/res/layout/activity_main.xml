@@ -10,12 +10,12 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="120dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="100dp"
-        app:srcCompat="@drawable/logo"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        app:srcCompat="@drawable/logo" />
 
     <EditText
         android:id="@+id/editText"
@@ -40,6 +40,7 @@
         android:background="@drawable/submitbtn"
         android:text="Submit"
         android:textColor="@android:color/background_light" />
+
 
 
 </RelativeLayout>
