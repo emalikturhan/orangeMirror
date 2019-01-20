@@ -1,0 +1,92 @@
+{
+    "person_1": {
+        "personId": "adsadsa",
+        "name": "abc",
+        "home": "mustafa_home",
+        "settings": {
+            "setting1": "true",
+            "setting2": "true",
+            "setting3": "false"
+        }
+    },
+    "person_2": {
+        "personId": "abc-def",
+        "name": "mustafa",
+        "home": "mustafa_home",
+        "settings": {
+            "setting1": "true",
+            "setting2": "true",
+            "setting3": "false"
+        }
+    },
+    "person_3": {
+        "personId": "nullPerson",
+        "name": "abc",
+        "home": "mustafa_home",
+        "settings": {
+            "setting1": "true",
+            "setting2": "true",
+            "setting3": "false"
+        }
+    },
+    "person_4": {
+        "personId": "nullPerson",
+        "name": "abc",
+        "home": "mustafa_home",
+        "settings": {
+            "setting1": "true",
+            "setting2": "true",
+            "setting3": "false"
+        }
+    },
+    "person_5": {
+        "personId": "nullPerson",
+        "name": "abc",
+        "home": "mustafa_home",
+        "settings": {
+            "setting1": "true",
+            "setting2": "true",
+            "setting3": "false"
+        }
+    },
+    "person_6": {
+        "personId": "nullPerson",
+        "name": "abc",
+        "home": "mustafa_home",
+        "settings": {
+            "setting1": "true",
+            "setting2": "true",
+            "setting3": "false"
+        }
+    },
+    "person_7": {
+        "personId": "nullPerson",
+        "name": "abc",
+        "home": "mustafa_home",
+        "settings": {
+            "setting1": "true",
+            "setting2": "true",
+            "setting3": "false"
+        }
+    },
+    "person_8": {
+        "personId": "48669522-4e33-4d4f-9ea8-d6b111c2ecbb",
+        "name": "abc",
+        "home": "mustafa_home",
+        "settings": {
+            "setting1": "true",
+            "setting2": "true",
+            "setting3": "false"
+        }
+    },
+    "person_9": {
+        "personId": "d962779f-e292-4c1c-9309-57868a8f8375",
+        "name": "abc",
+        "home": "mustafa_home",
+        "settings": {
+            "setting1": "true",
+            "setting2": "true",
+            "setting3": "false"
+        }
+    }
+}
