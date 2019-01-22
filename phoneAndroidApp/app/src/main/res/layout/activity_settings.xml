@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity">
+
+    <LinearLayout
+        android:id="@+id/mainLinear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        tools:context=".SettingsActivity">
+
+        <LinearLayout
+            android:id="@+id/timeModuleLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/layout_border">
+
+
+        <ImageView
+            android:id="@+id/module_icon1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_recent_history" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Time Module"
+            android:textAllCaps="true"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Display of the current time."
+            android:textSize="10dp"/>
+
+        <Switch
+            android:id="@+id/time_module_enable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enable this module?"
+            android:checked="true"
+            android:layout_marginRight="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Text Size"
+            android:textAllCaps="true" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/timeDecrementBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:text="-" />
+
+            <TextView
+                android:id="@+id/timeModule_textSize_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:text="70"
+                android:textColor="#000000" />
+
+            <Button
+                android:id="@+id/timeIncrementBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:text="+" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/timeModule_textSizeInt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="12:34 PM"
+            android:textSize="70dp"
+            />
+
+        <Switch
+            android:id="@+id/hour24_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Use 24 hour time?"
+            android:layout_marginRight="15dp"/>
+
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/weatherModuleLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/layout_border">
+
+            <ImageView
+                android:id="@+id/module_icon2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_recent_history" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="Weather Module"
+                android:textAllCaps="true"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Show today's tempratures."
+                android:textSize="10dp"/>
+
+            <Switch
+                android:id="@+id/weather_module_enable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enable this module?"
+                android:checked="true"
+                android:layout_marginRight="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Text Size"
+                android:textAllCaps="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/weatherDecrementBtn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/weatherModule_textSize_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="70"
+                    android:textColor="#000000" />
+
+                <Button
+                    android:id="@+id/weatherIncrementBtn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text="+" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/weatherModule_textSizeInt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="30°"
+                android:textSize="70dp"
+                />
+
+            <Switch
+                android:id="@+id/celcius_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Use celcius for temperature"
+                android:layout_marginRight="15dp"/>
+
+
+        </LinearLayout>
+
+
+</LinearLayout>
+
+    </ScrollView>
