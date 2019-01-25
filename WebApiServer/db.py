@@ -28,7 +28,7 @@ def create_person(name, home):
     person = default_person
     # PersonGroup Person Create
     personId = create_face_api_personGroup_person(name)
-    # Person id person idye kayıt edilecek
+    # Person id person idye kayit edilecek
     person["personId"] = personId
     person["name"] = name
     person["home"] = home
@@ -36,6 +36,21 @@ def create_person(name, home):
     data["person_"+str(person_number)] = person
     print(data)
     save_db(data)
+
+
+def update_settigs_for_user(name, settings_json):
+    user_json = {}
+    data = get_db()
+    person_id = ""
+    for d in data:
+        if(data[d]["name"].lower() == name.lower()):
+            user_json = data[d]
+            print("user_json"+str(user_json))
+            person_id = d
+            break
+    data[person_id]["settings"] = settings_json
+    print("UPDATED"+str(data[person_id]))
+    return data[person_id]
 
 
 def create_face_api_personGroup_person(name):
@@ -113,7 +128,7 @@ def identify_face_api(face_url):
         response = json.loads(r.text)
         personId = response[0]["candidates"][0]["personId"]
         confidence = float(response[0]["candidates"][0]["confidence"])
-        # belli threshold üstünde ise addFace yap
+        # belli threshold ustunde ise addFace yap
         print(confidence)
         print(personId)
         name = get_name(personId)
@@ -138,15 +153,34 @@ def check_name_exist(name):
     data = get_db()
     for d in data:
         if(data[d]["name"].lower() == name.lower()):
+            print("DB"+data[d]["name"].lower())
+            print("name"+name.lower())
             return True
-    return True  # False
+    return False  # False
 
 
 # train_face_api_personGroup_person()
 #create_person("abc", "mustafa_home")
-print(identify_face_api("https://i.postimg.cc/Z585whdX/web.jpg"))
+# print(identify_face_api("https://i.postimg.cc/Z585whdX/web.jpg"))
+settings_json = {
+    "user_name": "enez",
+    "settings": [
+        {
+            "time_module_enable": "true",
+            "timeTxtSize": "210.0",
+            "hour24_enable": "false"
+        },
+        {
+            "weather_module": "true",
+            "weatherTxtSize": "300",
+            "celcius_enable": "false"
+        }
+    ]
+}
+
+update_settigs_for_user("enez", settings_json)
 data = get_db()
-print(data)
+#print(data)
 
 """
 data["person_1"]["home"] = "home1"
