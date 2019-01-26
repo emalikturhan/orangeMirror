@@ -18,48 +18,63 @@ def save_db(data):
         f.close()
 
 
-def create_person(name, home):
-    if(check_name_exist(name)):
+def create_person(user_name, home):
+    if(check_name_exist(user_name)):
         print("this name exists.")
-        return
+        return False
     data = get_db()
     # get person_1 VALUE
     default_person = json.loads(str(data["person_1"]).replace("'", "\""))
     person = default_person
     # PersonGroup Person Create
-    personId = create_face_api_personGroup_person(name)
+    personId = create_face_api_personGroup_person(user_name)
     # Person id person idye kayit edilecek
     person["personId"] = personId
-    person["name"] = name
+    person["user_name"] = user_name
     person["home"] = home
     person_number = len(data.keys()) + 1
     data["person_"+str(person_number)] = person
     print(data)
     save_db(data)
+    return True
 
 
-def update_settigs_for_user(name, settings_json):
+def update_settings_for_user(name, settings_json):
     user_json = {}
     data = get_db()
     person_id = ""
     for d in data:
-        if(data[d]["name"].lower() == name.lower()):
+        if(data[d]["user_name"].lower() == name.lower()):
             user_json = data[d]
             print("user_json"+str(user_json))
             person_id = d
             break
     data[person_id]["settings"] = settings_json
+    save_db(data)
     print("UPDATED"+str(data[person_id]))
     return data[person_id]
 
 
-def create_face_api_personGroup_person(name):
+def get_settings_for_user(user_name):
+    user_json = {}
+    data = get_db()
+    person_id = ""
+    for d in data:
+        if(data[d]["user_name"].lower() == user_name.lower()):
+            user_json = data[d]
+            print("user_json"+str(user_json))
+            person_id = d
+            break
+    return data[person_id]
+
+
+def create_face_api_personGroup_person(user_name):
     url = "https://westeurope.api.cognitive.microsoft.com/face/v1.0/persongroups/4567/persons"
     headers = {
         "content-type": "application/json",
         "Ocp-Apim-Subscription-Key": "c5e2d62a223946ca9e3f35b3fef75cef"
     }
-    payload = "{\"name\":\"" + name + "\"}"
+    payload = "{\"name\":\"" + user_name + "\"}"
     print(str(payload))
     r = requests.post(url=url, data=payload, headers=headers)
     print(r.content)
@@ -79,9 +94,9 @@ def train_face_api_personGroup_person():
     r = requests.post(url=url, headers=headers)
 
 
-def add_face_face_api_personGroup_person(name, face_url):
+def add_face_face_api_personGroup_person(user_name, face_url):
     url = "https: // westeurope.api.cognitive.microsoft.com/face/v1.0/persongroups/4567/persons/" + \
-        name+"/persistedFaces"
+        user_name+"/persistedFaces"
     payload = "{\"url\":\"" + face_url + "\"}"
     headers = {
         "content-type": "application/json",
@@ -131,8 +146,8 @@ def identify_face_api(face_url):
         # belli threshold ustunde ise addFace yap
         print(confidence)
         print(personId)
-        name = get_name(personId)
-        return name
+        user_name = get_name(personId)
+        return user_name
     except:
         return "nullFaceId"
     print("a")
@@ -144,17 +159,17 @@ def get_name(personId):
 
         d_personId = data[d]["personId"]
         if(d_personId == personId):
-            name = data[d]["name"]
-            return name
+            user_name = data[d]["name"]
+            return user_name
     return "nullName"
 
 
-def check_name_exist(name):
+def check_name_exist(user_name):
     data = get_db()
     for d in data:
-        if(data[d]["name"].lower() == name.lower()):
-            print("DB"+data[d]["name"].lower())
-            print("name"+name.lower())
+        if(data[d]["user_name"].lower() == user_name.lower()):
+            print("DB"+data[d]["user_name"].lower())
+            print("user_name"+user_name.lower())
             return True
     return False  # False
 
@@ -178,9 +193,9 @@ settings_json = {
     ]
 }
 
-update_settigs_for_user("enez", settings_json)
+#update_settings_for_user("enez", settings_json)
 data = get_db()
-#print(data)
+# print(data)
 
 """
 data["person_1"]["home"] = "home1"

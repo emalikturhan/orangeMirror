@@ -1,1 +1,118 @@
-{"person_1": {"personId": "adsadsa", "name": "abc", "home": "mustafa_home", "settings": {"setting1": "true", "setting2": "true", "setting3": "false"}}, "person_2": {"personId": "abc-def", "name": "mustafa", "home": "mustafa_home", "settings": {"setting1": "true", "setting2": "true", "setting3": "false"}}, "person_3": {"personId": "nullPerson", "name": "abc", "home": "mustafa_home", "settings": {"setting1": "true", "setting2": "true", "setting3": "false"}}, "person_4": {"personId": "nullPerson", "name": "abc", "home": "mustafa_home", "settings": {"setting1": "true", "setting2": "true", "setting3": "false"}}, "person_5": {"personId": "nullPerson", "name": "abc", "home": "mustafa_home", "settings": {"setting1": "true", "setting2": "true", "setting3": "false"}}, "person_6": {"personId": "nullPerson", "name": "abc", "home": "mustafa_home", "settings": {"setting1": "true", "setting2": "true", "setting3": "false"}}, "person_7": {"personId": "nullPerson", "name": "abc", "home": "mustafa_home", "settings": {"setting1": "true", "setting2": "true", "setting3": "false"}}, "person_8": {"personId": "48669522-4e33-4d4f-9ea8-d6b111c2ecbb", "name": "abc", "home": "mustafa_home", "settings": {"setting1": "true", "setting2": "true", "setting3": "false"}}, "person_9": {"personId": "d962779f-e292-4c1c-9309-57868a8f8375", "name": "abc", "home": "mustafa_home", "settings": {"setting1": "true", "setting2": "true", "setting3": "false"}}, "person_10": {"personId": "88fd5c8c-6e64-4278-897e-61c469cdb485", "name": "enez", "home": "securify", "settings": {"setting1": "true", "setting2": "true", "setting3": "false"}}, "person_11": {"personId": "854d0e43-4cd1-4b61-92d0-70dab8f99f6e", "name": "enez2", "home": "securify", "settings": {"setting1": "true", "setting2": "true", "setting3": "false"}}}
+{
+    "person_1": {
+        "personId": "adsadsa",
+        "user_name": "abc",
+        "home": "mustafa_home",
+        "settings": {
+            "setting1": "true",
+            "setting2": "true",
+            "setting3": "false"
+        }
+    },
+    "person_2": {
+        "personId": "abc-def",
+        "user_name": "mustafa",
+        "home": "mustafa_home",
+        "settings": {
+            "setting1": "true",
+            "setting2": "true",
+            "setting3": "false"
+        }
+    },
+    "person_3": {
+        "personId": "nullPerson",
+        "user_name": "abc",
+        "home": "mustafa_home",
+        "settings": {
+            "setting1": "true",
+            "setting2": "true",
+            "setting3": "false"
+        }
+    },
+    "person_4": {
+        "personId": "nullPerson",
+        "user_name": "abc",
+        "home": "mustafa_home",
+        "settings": {
+            "setting1": "true",
+            "setting2": "true",
+            "setting3": "false"
+        }
+    },
+    "person_5": {
+        "personId": "nullPerson",
+        "user_name": "abc",
+        "home": "mustafa_home",
+        "settings": {
+            "setting1": "true",
+            "setting2": "true",
+            "setting3": "false"
+        }
+    },
+    "person_6": {
+        "personId": "nullPerson",
+        "user_name": "abc",
+        "home": "mustafa_home",
+        "settings": {
+            "setting1": "true",
+            "setting2": "true",
+            "setting3": "false"
+        }
+    },
+    "person_7": {
+        "personId": "nullPerson",
+        "user_name": "abc",
+        "home": "mustafa_home",
+        "settings": {
+            "setting1": "true",
+            "setting2": "true",
+            "setting3": "false"
+        }
+    },
+    "person_8": {
+        "personId": "48669522-4e33-4d4f-9ea8-d6b111c2ecbb",
+        "user_name": "abc",
+        "home": "mustafa_home",
+        "settings": {
+            "setting1": "true",
+            "setting2": "true",
+            "setting3": "false"
+        }
+    },
+    "person_9": {
+        "personId": "d962779f-e292-4c1c-9309-57868a8f8375",
+        "user_name": "abc",
+        "home": "mustafa_home",
+        "settings": {
+            "setting1": "true",
+            "setting2": "true",
+            "setting3": "false"
+        }
+    },
+    "person_10": {
+        "personId": "88fd5c8c-6e64-4278-897e-61c469cdb485",
+        "user_name": "enez",
+        "home": "securify",
+        "settings": [{
+            "module_user_name": "time_module",
+            "is_enabled": "true",
+            "time_font_size": "210.0",
+            "hour24_enable": "false"
+        }, {
+            "module_user_name": "weather_module",
+            "is_enabled": "true",
+            "weather_font_size": "210",
+            "celcius_enable": "false"
+        }]
+    },
+    "person_11": {
+        "personId": "854d0e43-4cd1-4b61-92d0-70dab8f99f6e",
+        "user_name": "enez2",
+        "home": "securify",
+        "settings": {
+            "setting1": "true",
+            "setting2": "true",
+            "setting3": "false"
+        }
+    }
+}

@@ -13,7 +13,7 @@ def register():
         user_name = content["user_name"]
         home = content["home"]
         db.create_person(user_name, home)
-        return str(True)
+        return str(db.create_person(user_name, home))
     else:
         data = db.get_db()
         return json.dumps(data, indent=4, sort_keys=False)
@@ -27,10 +27,16 @@ def settings():
         content = request.get_json()
         print("JSON"+str(content))
         user_name = content["user_name"]
-        settings = content["settings"]
-        data = db.update_settigs_for_user(user_name, settings)
-        #db.create_person(user_name, home)
-        return json.dumps(data, indent=4, sort_keys=False)
+        if "settings" in content:
+            settings = content["settings"]
+            data = db.update_settings_for_user(user_name, settings)
+            #db.create_person(user_name, home)
+            return json.dumps(data, indent=4, sort_keys=False)
+        else:
+            data = db.get_settings_for_user(user_name)
+            #db.create_person(user_name, home)
+            return json.dumps(data, indent=4, sort_keys=False)
+
     else:
         data = db.get_db()
         return json.dumps(data, indent=4, sort_keys=False)
