@@ -1,23 +1,39 @@
 {
     "person_1": {
-        "personId": "adsadsa",
-        "user_name": "abc",
-        "home": "mustafa_home",
-        "settings": {
-            "setting1": "true",
-            "setting2": "true",
-            "setting3": "false"
-        }
+        "personId": "default_id",
+        "user_name": "default_user",
+        "home": "default_home",
+        "settings": [{
+                "module_name": "time_module",
+                "is_enabled": "true",
+                "time_font_size": "210.0",
+                "hour24_enable": "false"
+            },
+            {
+                "module_name": "weather_module",
+                "is_enabled": "true",
+                "weather_font_size": "210",
+                "celcius_enable": "false"
+            }
+        ]
     },
     "person_2": {
         "personId": "abc-def",
         "user_name": "mustafa",
         "home": "mustafa_home",
-        "settings": {
-            "setting1": "true",
-            "setting2": "true",
-            "setting3": "false"
-        }
+        "settings": [{
+                "module_name": "time_module",
+                "is_enabled": "true",
+                "time_font_size": "210.0",
+                "hour24_enable": "false"
+            },
+            {
+                "module_name": "weather_module",
+                "is_enabled": "true",
+                "weather_font_size": "210",
+                "celcius_enable": "false"
+            }
+        ]
     },
     "person_3": {
         "personId": "nullPerson",
@@ -94,12 +110,12 @@
         "user_name": "enez",
         "home": "securify",
         "settings": [{
-            "module_user_name": "time_module",
+            "module_name": "time_module",
             "is_enabled": "true",
             "time_font_size": "210.0",
             "hour24_enable": "false"
         }, {
-            "module_user_name": "weather_module",
+            "module_name": "weather_module",
             "is_enabled": "true",
             "weather_font_size": "210",
             "celcius_enable": "false"
@@ -108,6 +124,16 @@
     "person_11": {
         "personId": "854d0e43-4cd1-4b61-92d0-70dab8f99f6e",
         "user_name": "enez2",
+        "home": "securify",
+        "settings": {
+            "setting1": "true",
+            "setting2": "true",
+            "setting3": "false"
+        }
+    },
+    "person_12": {
+        "personId": "a80431f3-08b1-4f86-9832-93753393ad3c",
+        "user_name": "enez3",
         "home": "securify",
         "settings": {
             "setting1": "true",
