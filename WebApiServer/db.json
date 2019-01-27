@@ -4,36 +4,32 @@
         "user_name": "default_user",
         "home": "default_home",
         "settings": [{
-                "module_name": "time_module",
-                "is_enabled": "true",
-                "time_font_size": "210.0",
-                "hour24_enable": "false"
-            },
-            {
-                "module_name": "weather_module",
-                "is_enabled": "true",
-                "weather_font_size": "210",
-                "celcius_enable": "false"
-            }
-        ]
+            "module_name": "time_module",
+            "is_enabled": "true",
+            "time_font_size": "210.0",
+            "hour24_enable": "false"
+        }, {
+            "module_name": "weather_module",
+            "is_enabled": "true",
+            "weather_font_size": "210",
+            "celcius_enable": "false"
+        }]
     },
     "person_2": {
         "personId": "abc-def",
         "user_name": "mustafa",
         "home": "mustafa_home",
         "settings": [{
-                "module_name": "time_module",
-                "is_enabled": "true",
-                "time_font_size": "210.0",
-                "hour24_enable": "false"
-            },
-            {
-                "module_name": "weather_module",
-                "is_enabled": "true",
-                "weather_font_size": "210",
-                "celcius_enable": "false"
-            }
-        ]
+            "module_name": "time_module",
+            "is_enabled": "true",
+            "time_font_size": "210.0",
+            "hour24_enable": "false"
+        }, {
+            "module_name": "weather_module",
+            "is_enabled": "true",
+            "weather_font_size": "210",
+            "celcius_enable": "false"
+        }]
     },
     "person_3": {
         "personId": "nullPerson",
@@ -112,7 +108,7 @@
         "settings": [{
             "module_name": "time_module",
             "is_enabled": "true",
-            "time_font_size": "210.0",
+            "time_font_size": "350.0",
             "hour24_enable": "false"
         }, {
             "module_name": "weather_module",

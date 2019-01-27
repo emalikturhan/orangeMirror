@@ -107,7 +107,7 @@ def add_face_face_api_personGroup_person(user_name, face_url):
 
 def detect_face_api(face_url):
     url = "https://westeurope.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true"
-    #payload = "{\"url\":\"" + face_url + "\"}"
+    # payload = "{\"url\":\"" + face_url + "\"}"
     payload = json.dumps({"url": face_url})
     headers = {
         "content-type": "application/json",
@@ -175,8 +175,8 @@ def check_name_exist(user_name):
 
 
 # train_face_api_personGroup_person()
-#create_person("abc", "mustafa_home")
-# print(identify_face_api("https://i.postimg.cc/Z585whdX/web.jpg"))
+# create_person("abc", "mustafa_home")
+print(identify_face_api("https://i.postimg.cc/Z585whdX/web.jpg"))
 settings_json = {
     "user_name": "enez",
     "settings": [
@@ -193,8 +193,8 @@ settings_json = {
     ]
 }
 
-#update_settings_for_user("enez", settings_json)
-data = get_db()
+# update_settings_for_user("enez", settings_json)
+#data = get_db()
 # print(data)
 
 """
