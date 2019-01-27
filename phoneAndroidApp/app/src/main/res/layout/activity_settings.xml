@@ -105,6 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Use 24 hour time?"
+            android:checked="true"
             android:layout_marginRight="15dp"/>
 
 
@@ -197,12 +198,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Use celcius for temperature"
+                android:checked="true"
                 android:layout_marginRight="15dp"/>
 
 
         </LinearLayout>
 
+        <Button
+            android:id="@+id/saveBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Save" />
 
-</LinearLayout>
+
+    </LinearLayout>
 
     </ScrollView>
