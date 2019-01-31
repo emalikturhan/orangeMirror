@@ -25,90 +25,91 @@
             android:background="@drawable/layout_border">
 
 
-        <ImageView
-            android:id="@+id/module_icon1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_recent_history" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:text="Time Module"
-            android:textAllCaps="true"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Display of the current time."
-            android:textSize="10dp"/>
-
-        <Switch
-            android:id="@+id/time_module_enable"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Enable this module?"
-            android:checked="true"
-            android:layout_marginRight="15dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Text Size"
-            android:textAllCaps="true" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/timeDecrementBtn"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:text="-" />
-
-            <TextView
-                android:id="@+id/timeModule_textSize_view"
+            <ImageView
+                android:id="@+id/module_icon1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:text="70"
-                android:textColor="#000000" />
+                android:src="@android:drawable/ic_menu_recent_history" />
 
-            <Button
-                android:id="@+id/timeIncrementBtn"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:text="+" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="Time Module"
+                android:textAllCaps="true"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Display of the current time."
+                android:textSize="10dp"/>
+
+            <Switch
+                android:id="@+id/time_module_enable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enable this module?"
+                android:checked="true"
+                android:layout_marginRight="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Text Size"
+                android:textAllCaps="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/timeDecrementBtn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/timeModule_textSize_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="70"
+                    android:textColor="#000000" />
+
+                <Button
+                    android:id="@+id/timeIncrementBtn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text="+" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/timeModule_textSizeInt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="12:34 PM"
+                android:textSize="70dp"
+                />
+
+            <Switch
+                android:id="@+id/hour24_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Use 24 hour time?"
+                android:checked="true"
+                android:layout_marginRight="15dp"/>
+
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/timeModule_textSizeInt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="12:34 PM"
-            android:textSize="70dp"
-            />
-
-        <Switch
-            android:id="@+id/hour24_switch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Use 24 hour time?"
-            android:layout_marginRight="15dp"/>
-
-
-    </LinearLayout>
 
         <LinearLayout
             android:id="@+id/weatherModuleLayout"
@@ -197,12 +198,106 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Use celcius for temperature"
+                android:checked="true"
                 android:layout_marginRight="15dp"/>
 
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/dateModuleLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/layout_border">
 
-</LinearLayout>
+            <ImageView
+                android:id="@+id/module_icon3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_recent_history" />
 
-    </ScrollView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="Date Module"
+                android:textAllCaps="true"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Show what day of the weekend and month it is."
+                android:textSize="10dp"/>
+
+            <Switch
+                android:id="@+id/date_module_enable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enable this module?"
+                android:checked="true"
+                android:layout_marginRight="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Text Size"
+                android:textAllCaps="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/dateDecrementBtn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/dateModule_textSize_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="70"
+                    android:textColor="#000000" />
+
+                <Button
+                    android:id="@+id/dateIncrementBtn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text="+" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/dateModule_textSizeInt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Friday the 25th"
+                android:textSize="70dp"
+                />
+
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/saveBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Save" />
+
+
+    </LinearLayout>
+
+</ScrollView>
