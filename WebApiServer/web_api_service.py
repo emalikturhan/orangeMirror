@@ -12,8 +12,8 @@ def register():
         print("JSON"+str(content))
         user_name = content["user_name"]
         home = content["home"]
-        db.create_person(user_name, home)
-        return str(db.create_person(user_name, home))
+        response = db.create_person(user_name, home)
+        return response
     else:
         data = db.get_db()
         return json.dumps(data, indent=4, sort_keys=False)
