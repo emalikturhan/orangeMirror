@@ -1,6 +1,9 @@
 Registeration:
 Desc: verilen user_name ve home için eğer daha önce oluşturulmamış ise user oluşturur.
-Response: oluşturuldu ise True, oluşturulamadı ise False.
+Response: 
+{
+    "is_created": "False"
+}
 
 POST http://localhost:5000/register
 header : Content-Type:application/json

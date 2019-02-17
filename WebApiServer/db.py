@@ -1,4 +1,4 @@
-import json
+from flask import Flask, jsonify, json
 from pprint import pprint
 import requests
 
@@ -14,7 +14,7 @@ def get_db():
 
 def save_db(data):
     with open('db.json', "w") as f:
-        f.write(str(data).replace("'", "\""))
+        f.write(json.dumps(data, sort_keys=False).replace("'", "\""))
         f.close()
 
 
@@ -24,7 +24,8 @@ def create_person(user_name, home):
         return False
     data = get_db()
     # get person_1 VALUE
-    default_person = json.loads(str(data["person_1"]).replace("'", "\""))
+    default_person = json.loads(json.dumps(
+        data["person_1"], sort_keys=False).replace("'", "\""))
     person = default_person
     # PersonGroup Person Create
     personId = create_face_api_personGroup_person(user_name)
@@ -34,24 +35,26 @@ def create_person(user_name, home):
     person["home"] = home
     person_number = len(data.keys()) + 1
     data["person_"+str(person_number)] = person
-    print(data)
     save_db(data)
     return True
 
 
 def update_settings_for_user(name, settings_json):
+    if(not(check_name_exist(name))):
+        response = {}
+        response["Error"] = "user not found"
+        return response
     user_json = {}
     data = get_db()
     person_id = ""
+
     for d in data:
         if(data[d]["user_name"].lower() == name.lower()):
             user_json = data[d]
-            print("user_json"+str(user_json))
             person_id = d
             break
     data[person_id]["settings"] = settings_json
     save_db(data)
-    print("UPDATED"+str(data[person_id]))
     return data[person_id]
 
 
@@ -62,7 +65,6 @@ def get_settings_for_user(user_name):
     for d in data:
         if(data[d]["user_name"].lower() == user_name.lower()):
             user_json = data[d]
-            print("user_json"+str(user_json))
             person_id = d
             break
     return data[person_id]
@@ -75,9 +77,7 @@ def create_face_api_personGroup_person(user_name):
         "Ocp-Apim-Subscription-Key": "c5e2d62a223946ca9e3f35b3fef75cef"
     }
     payload = "{\"name\":\"" + user_name + "\"}"
-    print(str(payload))
     r = requests.post(url=url, data=payload, headers=headers)
-    print(r.content)
     try:
         response = json.loads(r.text)
         personId = response["personId"]
