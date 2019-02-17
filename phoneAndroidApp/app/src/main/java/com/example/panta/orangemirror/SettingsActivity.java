@@ -2,11 +2,16 @@ package com.example.panta.orangemirror;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -16,24 +21,51 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+
 public class SettingsActivity extends Activity implements View.OnClickListener{
 
 
     private boolean time_module_enable_bool, weather_module_enable_bool,date_module_enable_bool;
     private String username, timeTxtSize, weatherTxtSize,dateTxtSize;
     private boolean hour24_enable,celcius_enable;
-    JSONObject settings;
+    JSONObject settings= new JSONObject();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        //////////////////// ONLY FIRST TIME SHOW REGISTER PAGE ///////////////////////////////
+        Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                .getBoolean("isFirstRun", true);
+
+        if (isFirstRun) {
+            //show sign up activity
+            startActivity(new Intent(SettingsActivity.this, RegisterActivity.class));
+
+        }
+
+        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
+                .putBoolean("isFirstRun", false).commit();
+
+        //////////////////////////////////////////////////////////////////////////////////////
+
+
         Intent intent = getIntent();
 
 
         //////////INITIALIZE SETTINGS VARIABLES /////////////
-        username = intent.getStringExtra("USERNAME");
+       // username = intent.getStringExtra("USERNAME");
+        username = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                .getString("username", "");
+
         time_module_enable_bool = true;
         weather_module_enable_bool= true;
         date_module_enable_bool=true;
@@ -188,20 +220,21 @@ public class SettingsActivity extends Activity implements View.OnClickListener{
             case R.id.saveBtn:
                 settings=createJSON();
 
-                JSONObject deneme = new JSONObject();
-                try {
-                    deneme.put("user_name","deneme");
-                    deneme.put("home","deneme");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
-                new SendDeviceDetails().execute("http://24.133.185.104:5000/register", deneme.toString());
+               //new SendDeviceDetails().execute("http://biyosecure.westeurope.cloudapp.azure.com:5000/settings", settings.toString());
 
+               /* String jsonString ="";
+                jsonString ="{\n" +
+                        "  \"user_name\":\""+"AAAAA"+"\",\n"+
+                        "  \"home\":\""+"dummyhsfsdome"+"\"\n"+
+                        "}\n"
+                ;
 
+                new SendDeviceDetails().execute("http://biyosecure.westeurope.cloudapp.azure.com:5000/register",jsonString);
 
+*/
                 String jsonStr = settings.toString();
-                System.out.println("jsonString: "+jsonStr);
+                System.out.println("jsonString101010: "+jsonStr);
                 Toast.makeText(getApplicationContext(), jsonStr, Toast.LENGTH_LONG).show();
 
                 break;
@@ -288,17 +321,23 @@ public class SettingsActivity extends Activity implements View.OnClickListener{
 
         jsonArray.put(timeModuleObj);
         jsonArray.put(weatherModuleObj);
-        jsonArray.put(dateModuleObj);
+       // jsonArray.put(dateModuleObj);
 
-        settings = new JSONObject();
+
         try {
-            settings.put("username", username);
-            settings.put("Settings", jsonArray);
+            settings.put("user_name", username);
+            settings.put("settings", jsonArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         return settings;
     }
 
 
+    public void onBackPressed() {
+        finish();
+    }
+
 }
+

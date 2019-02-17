@@ -3,55 +3,108 @@ package com.example.panta.orangemirror;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
- class SendDeviceDetails extends AsyncTask<String, Void, String> {
 
-    @Override
-    protected String doInBackground(String... params) {
 
-        String data = "";
+class SendDeviceDetails extends AsyncTask<String,String,String> {
+    protected String doInBackground (String ... params){
+        HttpURLConnection connection = null;
+        BufferedReader bufferedReader = null;
+        String file = "";
 
-        HttpURLConnection httpURLConnection = null;
-        try {
+        if(params.length>1){
+            try{
+                URL url = new URL(params[0]);
 
-            httpURLConnection = (HttpURLConnection) new URL(params[0]).openConnection();
-            httpURLConnection.setRequestMethod("POST");
+                JSONObject jsonObject = new JSONObject();
 
-            httpURLConnection.setDoOutput(true);
+                String jsonString =params[1];
 
-            DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
-            wr.writeBytes("PostData=" + params[1]);
-            wr.flush();
-            wr.close();
+                jsonObject = new JSONObject(jsonString);
 
-            InputStream in = httpURLConnection.getInputStream();
-            InputStreamReader inputStreamReader = new InputStreamReader(in);
 
-            int inputStreamData = inputStreamReader.read();
-            while (inputStreamData != -1) {
-                char current = (char) inputStreamData;
-                inputStreamData = inputStreamReader.read();
-                data += current;
+                Log.i("JSON", jsonObject.toString());
+
+
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("POST");
+                connection.setRequestProperty("Content-Type", "application/json");
+                //connection.setRequestProperty("Accept","application/json");
+                //connection.setRequestProperty("Authentication","Bearer Q70lWlPwbjFQDWHcPkvZSrx1RTReqvu9DuW/Ff1JO1cZNhVb7d5ekJ2ra0eJ4PF1au7HtX3NTxIiyFwXEORxow==");
+
+                //connection.setRequestProperty("Authorization","Bearer Q70lWlPwbjFQDWHcPkvZSrx1RTReqvu9DuW/Ff1JO1cZNhVb7d5ekJ2ra0eJ4PF1au7HtX3NTxIiyFwXEORxow==");
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+                connection.connect();
+
+
+
+
+                System.out.print("AAAAAAAAAAAAAAAAAAAA:   " + jsonObject.toString());
+                DataOutputStream dos = new DataOutputStream(connection.getOutputStream());
+                dos.writeBytes(jsonObject.toString());
+                dos.flush();
+                dos.close();
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while((line = reader.readLine()) != null)
+                {
+                    // Append server response in string
+                    sb.append(line + "\n");
+                }
+                String response = sb.toString();
+                reader.close();
+                 System.out.println("RESPONSE: "+response);
+
+
+                Log.i("STATUS", String.valueOf(connection.getResponseCode()));
+                Log.i("MSG" , connection.getResponseMessage());
+
+
+
+                connection.disconnect();
+
+
+                //file = connection.getResponseMessage();
+            }catch (Exception e){
+
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (httpURLConnection != null) {
-                httpURLConnection.disconnect();
+            return file;
+        }
+        else{
+            try{
+                URL url = new URL(params[0]);
+                Log.d("url",params[0]);
+
+                connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+                InputStream inputStream = connection.getInputStream();
+                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+                while ((line = bufferedReader.readLine()) != null){
+                    Log.d("line:",line);
+                    file += line;
+                }
+            }catch (Exception e){
+
             }
+            return file;
         }
 
-        return data;
     }
-
-    @Override
-    protected void onPostExecute(String result) {
-        super.onPostExecute(result);
-        Log.e("TAG", result); // this is expecting a response code to be sent from your server upon receiving the POST data
+    protected void onPostExecute(String s){
+        Log.d("fromPostExecute",s);
+       // System.out.print("onPostExecute-------> "+s);
     }
 }
