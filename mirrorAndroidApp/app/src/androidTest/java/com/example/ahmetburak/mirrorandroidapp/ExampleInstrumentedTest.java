@@ -1,4 +1,4 @@
-package com.example.mustafa.mirrorandroidapp;
+package com.example.ahmetburak.mirrorandroidapp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.mustafa.mirrorandroidapp", appContext.getPackageName());
+        assertEquals("com.example.ahmetburak.mirrorandroidapp", appContext.getPackageName());
     }
 }

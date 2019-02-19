@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">mirrorAndroidApp</string>
+    <string name="title_activity_calendar">CalendarActivity</string>
 </resources>

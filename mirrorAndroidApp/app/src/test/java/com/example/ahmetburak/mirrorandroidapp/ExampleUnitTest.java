@@ -1,4 +1,4 @@
-package com.example.mustafa.mirrorandroidapp;
+package com.example.ahmetburak.mirrorandroidapp;
 
 import org.junit.Test;
 
