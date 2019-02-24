@@ -11,37 +11,43 @@ import java.util.List;
 
 
 public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
-    private CalendarActivity mActivity;
+    private CalendarActivity cActivity;
 
 
     ApiAsyncTask(CalendarActivity activity)
+		//Constructor (CalendarActivity'i oluşturur)
     {
-        this.mActivity = activity;
+        this.cActivity = activity;
     }
 
-
+	// Arkaplan görevlerini düzenler.
     @Override
     protected Void doInBackground(Void... params) {
         try {
-            mActivity.clearResultsText();
-            mActivity.updateResultsText(getDataFromApi());
+            cActivity.clearResultsText();
+            cActivity.updateResultsText(getDataFromApi());
 
         } catch (final GooglePlayServicesAvailabilityIOException availabilityException) {
-            mActivity.showGooglePlayServicesAvailabilityErrorDialog(
+            cActivity.showGooglePlayServicesAvailabilityErrorDialog(
                     availabilityException.getConnectionStatusCode());
 
         } catch (UserRecoverableAuthIOException userRecoverableException) {
-            mActivity.startActivityForResult(
+            cActivity.startActivityForResult(
                     userRecoverableException.getIntent(),
                     CalendarActivity.REQUEST_AUTHORIZATION);
 
         } catch (IOException e) {
-            mActivity.updateStatus("Hata meydana geldi: " +
+            cActivity.updateStatus("Hata meydana geldi: " +
                     e.getMessage());
         }
         return null;
     }
 
+	/**
+     * Takvimde kayıtlı etkinliklerden ilk 15 tanesini basar.
+     * @return Tanımlanmış etkinliklerin string listesi.
+     * @throws IOException
+     */
 
     private List<String> getDataFromApi() throws IOException {
 
@@ -51,7 +57,7 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
         eventStrings.add(
             (String.format("%s ", "Tarih : " + now + "\n")));
 
-        Events events = mActivity.mService.events().list("primary")
+        Events events = cActivity.mService.events().list("primary")
                 .setMaxResults(15)
                 .setTimeMin(now)
                 .setOrderBy("startTime")
