@@ -58,5 +58,28 @@ def settings():
     return json.dumps(content, indent=4, sort_keys=False)
 
 
+@app.route('/api/photo', methods=['POST', 'GET'])
+def upload_file():
+    if request.method == 'POST':
+        files = request.files
+        for f in files:
+            file = request.files[f]
+            counter += 1
+            filename = "photo_"+str(counter)
+            if(len(os.listdir(UPLOAD_FOLDER)) > 5):
+                # create_person
+                # add all faces
+                # train
+                model_created = True
+            if(model_created):
+                # identify face
+
+            print(filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    response = {}
+    response["username"] = "mustafa"
+    return json.dumps(response)
+
+
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')

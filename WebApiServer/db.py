@@ -104,6 +104,21 @@ def add_face_face_api_personGroup_person(user_name, face_url):
     }
     r = requests.post(url=url, data=payload, headers=headers)
 
+def add_face_face_api_personGroup_person_binary(user_name, face_url):
+    url = "https: // westeurope.api.cognitive.microsoft.com/face/v1.0/persongroups/4567/persons/" + \
+        user_name+"/persistedFaces"
+    photo_name = get_photo_name(user_name)
+    payload = open('./x.png', 'rb').read()
+    headers = {
+        "content-type": "application/octet",
+        "Ocp-Apim-Subscription-Key": "c5e2d62a223946ca9e3f35b3fef75cef"
+    }
+    r = requests.post(url=url, data=payload, headers=headers)
+    print(r.content)
+
+
+def get_photo_name(user_name):
+    return "test.jpg"
 
 def detect_face_api(face_url):
     url = "https://westeurope.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true"
