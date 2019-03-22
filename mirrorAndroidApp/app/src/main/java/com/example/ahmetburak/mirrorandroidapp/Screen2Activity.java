@@ -1,12 +1,11 @@
 package com.example.ahmetburak.mirrorandroidapp;
 
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,13 +29,13 @@ public class Screen2Activity extends AppCompatActivity {
     private class getWeather extends AsyncTask<Void, Void, Void>{
 
         int temperatureNo;
-        String cityName="Ankara";
+        String cityName="ankara";
 
         protected void onPreExecute(){
             super.onPreExecute();
         }
         protected Void doInBackground(Void... params){
-            String url="http://api.openweathermap.org/data/2.5/find?q="+cityName+"&units=metric";
+            String url="http://api.openweathermap.org/data/2.5/weather?q="+cityName+"&APPID=485492b80171aada0e5d376d46584e4a";
             JSONObject jsonObject=null;
 
             try{
@@ -47,9 +46,9 @@ public class Screen2Activity extends AppCompatActivity {
                 catch (JSONException e){
                     Log.e("JsonParser","Error creating json object");
                 }
-                JSONArray listArray=jsonObject.getJSONArray("list");
-                JSONObject firstObject=listArray.getJSONObject(0);
-                JSONObject mainObject=firstObject.getJSONObject("main");
+
+
+                JSONObject mainObject=jsonObject.getJSONObject("main");
                 temperatureNo=mainObject.getInt("temp");
             }
             catch (JSONException e){
@@ -59,7 +58,7 @@ public class Screen2Activity extends AppCompatActivity {
             return null;
         }
         protected void onPostExecute(Void args){
-            temperature.setText(temperatureNo+"\u2103");
+            temperature.setText(temperatureNo-273+"\u2103");
         }
 
     }

@@ -12,10 +12,9 @@
         android:layout_height="247dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="SCREEN-II"
         android:textSize="@android:dimen/notification_large_icon_height"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="23dp"
-        tools:layout_editor_absoluteY="308dp" />
+        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteY="16dp" />
 
 </android.support.constraint.ConstraintLayout>
