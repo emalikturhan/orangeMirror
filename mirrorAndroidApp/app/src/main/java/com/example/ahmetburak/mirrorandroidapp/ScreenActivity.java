@@ -3,7 +3,6 @@ package com.example.ahmetburak.mirrorandroidapp;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -60,13 +59,9 @@ public class ScreenActivity extends AppCompatActivity {
                     Document doc = Jsoup.connect(URL+hisseler.get(i)).timeout(30 * 1000).get();
 
                     Elements hisse = doc.select("div.left");
-                    degerler.add(hisseler.get(i)+"->"+hisse.get(1).text().substring(0,hisse.get(1).text().indexOf("+")));
+                    degerler.add(hisseler.get(i)+"->"+hisse.get(1).text().substring(0,4));
                 }
 
-                for(int i=0;i<2;i++)
-                {
-                    Log.i("SASASA",degerler.get(i));
-                }
 
             } catch (IOException e) {
                 e.printStackTrace();

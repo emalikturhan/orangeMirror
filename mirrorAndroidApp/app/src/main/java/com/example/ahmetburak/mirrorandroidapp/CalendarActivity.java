@@ -1,17 +1,8 @@
 package com.example.ahmetburak.mirrorandroidapp;
 
 
-import android.os.Bundle;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.gson.GsonFactory;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.util.ExponentialBackOff;
-import com.google.api.services.calendar.CalendarScopes;
 import android.accounts.AccountManager;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -19,16 +10,32 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.app.Activity;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.client.util.ExponentialBackOff;
+import com.google.api.services.calendar.CalendarScopes;
+
 import java.util.Arrays;
 import java.util.List;
 
 public class CalendarActivity extends Activity {
+	
+	
+	 // Google Calendar API servis objeleri kullanılarak API'ye erişildi
+  
+     
 
     com.google.api.services.calendar.Calendar mService;
     GoogleAccountCredential credential;
@@ -44,7 +51,7 @@ public class CalendarActivity extends Activity {
     private static final String[] SCOPES = { CalendarScopes.CALENDAR_READONLY };
 
 
-
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +96,7 @@ public class CalendarActivity extends Activity {
     }
 
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -101,6 +109,14 @@ public class CalendarActivity extends Activity {
     }
 
 
+	/**
+     * Burada bir activity çalıştığın ortaya çıkar, size başladığınız requestCode'u verir.
+     * Buna göre bir resultCode ve ek verileri döndürür.
+     * @param requestCode hangi aktivitenin başlatıldığının kodunu gösterir.
+     * @param resultCode gelen aktivitenin sonucununun kodunu döner.
+     * @param data gelen aktivitenin verileridir.    
+     */
+	 
     @Override
     protected void onActivityResult(
             int requestCode, int resultCode, Intent data) {
@@ -144,6 +160,8 @@ public class CalendarActivity extends Activity {
     }
 
 
+	// Kayıtlı hesabın olup olmadığını kontrol eder eğer yoksa hesap seçmenizi ister.
+	
     private void refreshResults() {
         if (credential.getSelectedAccountName() == null) {
             chooseAccount();
@@ -185,6 +203,8 @@ public class CalendarActivity extends Activity {
     }
 
 
+
+
     public void updateStatus(final String message) {
         runOnUiThread(new Runnable() {
             @Override
@@ -194,11 +214,14 @@ public class CalendarActivity extends Activity {
         });
     }
 
-
+	
+	// Hesap seçmek için yeni bir aktivite oluşturur.
+	 
     private void chooseAccount() {
         startActivityForResult(
                 credential.newChooseAccountIntent(), REQUEST_ACCOUNT_PICKER);
     }
+
 
 
     private boolean isDeviceOnline() {
