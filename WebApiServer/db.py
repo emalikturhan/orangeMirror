@@ -39,8 +39,8 @@ def create_person(user_name, home):
     return True
 
 
-def update_settings_for_user(name, settings_json):
-    if(not(check_name_exist(name))):
+def update_settings_for_user(username, settings_json):
+    if(not(check_name_exist(username))):
         response = {}
         response["Error"] = "user not found"
         return response
@@ -95,7 +95,7 @@ def train_face_api_personGroup_person():
 
 
 def add_face_face_api_personGroup_person(user_name, face_url):
-    url = "https: // westeurope.api.cognitive.microsoft.com/face/v1.0/persongroups/4567/persons/" + \
+    url = "https://westeurope.api.cognitive.microsoft.com/face/v1.0/persongroups/4567/persons/" + \
         user_name+"/persistedFaces"
     payload = "{\"url\":\"" + face_url + "\"}"
     headers = {
@@ -104,21 +104,23 @@ def add_face_face_api_personGroup_person(user_name, face_url):
     }
     r = requests.post(url=url, data=payload, headers=headers)
 
-def add_face_face_api_personGroup_person_binary(user_name, face_url):
-    url = "https: // westeurope.api.cognitive.microsoft.com/face/v1.0/persongroups/4567/persons/" + \
-        user_name+"/persistedFaces"
-    photo_name = get_photo_name(user_name)
-    payload = open('./x.png', 'rb').read()
+
+def add_face_face_api_personGroup_person_binary(user_name, filename):
+    person_id = get_person_id(user_name)
+    url = "https://westeurope.api.cognitive.microsoft.com/face/v1.0/persongroups/4567/persons/" + \
+        person_id+"/persistedFaces"
+    photo_name = filename
+    payload = open(photo_name, 'rb').read()
     headers = {
-        "content-type": "application/octet",
+        "content-type": "application/octet-stream",
         "Ocp-Apim-Subscription-Key": "c5e2d62a223946ca9e3f35b3fef75cef"
     }
     r = requests.post(url=url, data=payload, headers=headers)
-    print(r.content)
 
 
 def get_photo_name(user_name):
     return "test.jpg"
+
 
 def detect_face_api(face_url):
     url = "https://westeurope.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true"
@@ -159,22 +161,84 @@ def identify_face_api(face_url):
         personId = response[0]["candidates"][0]["personId"]
         confidence = float(response[0]["candidates"][0]["confidence"])
         # belli threshold ustunde ise addFace yap
+    except:
+        return "nullPersonId"
+    user_name = get_name(personId)
+    return user_name
+
+
+def get_person_id(username):
+
+    if(not(check_name_exist(username))):
+        response = {}
+        response["Error"] = "user not found"
+        return response
+    user_json = {}
+    data = get_db()
+    person_id = ""
+
+    for d in data:
+        if(data[d]["user_name"].lower() == username.lower()):
+            user_json = data[d]
+            person_id = d
+            break
+    return person_id
+
+
+def identify_face_api_with_binary(filename):
+    url = "https://westeurope.api.cognitive.microsoft.com/face/v1.0/identify"
+    faceId = detect_face_api_with_binary(filename)
+    payload = json.dumps({
+        "personGroupId": "4567",
+        "faceIds": [
+            faceId
+        ],
+        "maxNumOfCandidatesReturned": 1,
+        "confidenceThreshold": 0.5
+    }
+    )
+    headers = {
+        "content-type": "application/json",
+        "Ocp-Apim-Subscription-Key": "c5e2d62a223946ca9e3f35b3fef75cef"
+    }
+    r = requests.post(url=url, data=payload, headers=headers)
+
+    try:
+        response = json.loads(r.text)
+        personId = response[0]["candidates"][0]["personId"]
+        confidence = float(response[0]["candidates"][0]["confidence"])
         print(confidence)
-        print(personId)
-        user_name = get_name(personId)
-        return user_name
+        # belli threshold ustunde ise addFace yap
+    except:
+        return "Person Couldn't Find"
+    user_name = get_name(personId)
+    return user_name
+
+
+def detect_face_api_with_binary(filename):
+    url = "https://westeurope.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true"
+    # payload = "{\"url\":\"" + face_url + "\"}"
+    photo_name = filename
+    payload = open(photo_name, 'rb').read()
+    headers = {
+        "content-type": "application/octet-stream",
+        "Ocp-Apim-Subscription-Key": "c5e2d62a223946ca9e3f35b3fef75cef"
+    }
+    r = requests.post(url=url, data=payload, headers=headers)
+    try:
+        response = json.loads(r.text)
+        faceId = response[0]["faceId"]
+        return faceId
     except:
         return "nullFaceId"
-    print("a")
 
 
 def get_name(personId):
     data = get_db()
     for d in data:
-
         d_personId = data[d]["personId"]
         if(d_personId == personId):
-            user_name = data[d]["name"]
+            user_name = data[d]["user_name"]
             return user_name
     return "nullName"
 
@@ -191,7 +255,7 @@ def check_name_exist(user_name):
 
 # train_face_api_personGroup_person()
 # create_person("abc", "mustafa_home")
-print(identify_face_api("https://i.postimg.cc/Z585whdX/web.jpg"))
+# print(identify_face_api_with_binary("upload_folder/photo_89.jpg"))
 settings_json = {
     "user_name": "enez",
     "settings": [
