@@ -21,7 +21,7 @@ def save_events(data):
 def get_user_events(username):
     data = get_events()
     for d in data:
-        if(d["username"].lower() == username.lower()):
+        if(d["user_name"].lower() == username.lower()):
             events = d["events"][0][0]
             return events
     return ""
@@ -49,8 +49,6 @@ def create_person_events(user_name):
     d["events"] = default_events
     data.append(d)
     save_events(data)
-
-
 
 
 def create_person(user_name, home):

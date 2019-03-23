@@ -151,7 +151,9 @@ def user_events():
             data = db.update_events_for_user(user_name, events)
             return json.dumps(data, indent=4, sort_keys=False)
         else:
+            print("abc")
             data = db.get_user_events(user_name)
+            print(data)
             return json.dumps(data, indent=4, sort_keys=False)
 
 
