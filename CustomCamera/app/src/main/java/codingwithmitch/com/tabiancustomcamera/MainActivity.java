@@ -3,6 +3,7 @@ package codingwithmitch.com.tabiancustomcamera;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivity{
             return false;
         }
     }
+
 
     public void verifyPermissions(){
         Log.d(TAG, "verifyPermissions: asking user for permissions.");

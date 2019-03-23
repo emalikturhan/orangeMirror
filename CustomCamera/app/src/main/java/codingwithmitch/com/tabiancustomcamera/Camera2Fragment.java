@@ -88,6 +88,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
@@ -306,7 +307,7 @@ public class Camera2Fragment extends Fragment implements
             }
 
             case R.id.undo_container:{
-                undoAction();
+                register_face();
                 break;
             }
 
@@ -570,16 +571,43 @@ public class Camera2Fragment extends Fragment implements
         }
     }
 
-
-    public void face_identify_button(){
+    public void register_face(){
         String filepath = ""+getActivity().getExternalFilesDir(null) ;
         String username = "mustafa";
-        String upLoadServerUri = "http://192.168.0.22:3999/api/photo";
-        String response = String.valueOf(new UploadFileAsync().execute(upLoadServerUri,filepath,username));
+        String upLoadServerUri = "http://192.168.0.22:5000/api/register_photo";
+        String response = null;
+        try {
+            response = new UploadFileAsync().execute(upLoadServerUri,filepath,username).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println(response);
         System.out.print("aa");
         TextView atextView = textView;
         atextView.setText(response);
+        atextView.setVisibility(View.VISIBLE);
+
+    }
+
+    public void face_identify_button(){
+        String filepath = ""+getActivity().getExternalFilesDir(null) ;
+        String username = "mustafa";
+        String upLoadServerUri = "http://biyosecure.westeurope.cloudapp.azure.com:5000/api/photo";
+        String response = null;
+        try {
+            response = new UploadFileAsync().execute(upLoadServerUri,filepath,username).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(response);
+        System.out.print("aa");
+        TextView atextView = textView;
+        atextView.setText(response);
+        atextView.setVisibility(View.VISIBLE);
 
     }
     private class UploadFileAsync extends AsyncTask<String, Void, String> {
@@ -587,6 +615,7 @@ public class Camera2Fragment extends Fragment implements
         @Override
         protected String doInBackground(String... params) {
             String username = "";
+            String file = "";
             try {
                 String upLoadServerUri = params[0];
                 //String upLoadServerUri = "http://192.168.0.22:3999/api/photo";
@@ -657,11 +686,31 @@ public class Camera2Fragment extends Fragment implements
 
                         }
 
+
+
+
                         // send multipart form data necesssary after file
                         // data...
                         dos.writeBytes(lineEnd);
                         dos.writeBytes(twoHyphens + boundary + twoHyphens
                                 + lineEnd);
+
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        StringBuilder sb = new StringBuilder();
+                        String line = null;
+                        while((line = reader.readLine()) != null)
+                        {
+                            // Append server response in string
+                            sb.append(line + "\n");
+                        }
+                        String response = sb.toString();
+                        reader.close();
+                        System.out.println("RESPONSE: "+response);
+                        JSONObject jsonObject = new JSONObject(response);
+                        String name = jsonObject.getString("username");
+                        String score = jsonObject.getString("score");
+                        file = name + "\n" + score;
+
 
                         // Responses from the server (code and message)
                         int serverResponseCode = conn.getResponseCode();
@@ -699,7 +748,7 @@ public class Camera2Fragment extends Fragment implements
 
                 ex.printStackTrace();
             }
-            return "Executed";
+            return file;
         }
 
         @Override
