@@ -49,12 +49,6 @@ def settings():
         user_name = content["user_name"]
         if "settings" in content:
             settings = content["settings"]
-            """print("Dumps")
-            print(json.dumps(settings))
-            print("str")
-            print(str(settings))
-            print("LOADS")
-            print(json.loads(json.dumps(settings)))"""
             data = db.update_settings_for_user(user_name,  settings)
             # return json.dumps(settings)
             return json.dumps(data, indent=4, sort_keys=False)
@@ -77,6 +71,7 @@ def upload_file():
     if request.method == 'POST':
         print(request.get_json())
         files = request.files
+        print("start")
         user_name = "test_person19"
         for f in files:
             file = request.files[f]
@@ -86,6 +81,9 @@ def upload_file():
 
             if(True):
                 filename = upload_folder + "/" + filename
+                print(filename)
+                identified_user, score = db.identify_face_api_with_binary(
+                    filename)
                 print(db.identify_face_api_with_binary(filename))
 
             if(len(os.listdir(upload_folder)) > 5 and False):
@@ -97,24 +95,36 @@ def upload_file():
                 db.train_face_api_personGroup_person()
                 #messages[model_created] = True
     response = {}
-    response["username"] = "mustafa"
+    response["username"] = identified_user
+    response["score"] = score
     finish = time.time()
     print(finish-start)
     return json.dumps(response)
 
 
-@app.route('/api/photo', methods=['POST', 'GET'])
+#def register_
+
+
+@app.route('/api/events', methods=['POST', 'GET'])
 def user_events():
     if request.method == 'POST':
+        response = {}
         content = request.get_json()
         user_name = content["user_name"]
+        if "events" in content:
+            events = content["events"]
+            data = db.update_events_for_user(user_name, events)
+            return json.dumps(data, indent=4, sort_keys=False)
+        else:
+            data = db.get_user_events(user_name)
+            return json.dumps(data, indent=4, sort_keys=False)
 
 
 @app.route('/api/test', methods=['POST', 'GET'])
 def user_test():
     if request.method == 'POST':
         content = request.get_json()
-    return json.dumps(content)
+    return json.dumps(content, indent=4, sort_keys=False)
 
 
 if __name__ == "__main__":

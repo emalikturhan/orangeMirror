@@ -5,6 +5,28 @@ import requests
 db_json = "db.json"
 
 
+def get_events():
+    with open('events.json') as f:
+        data = json.load(f)
+        f.close()
+    return data
+
+
+def save_events(data):
+    with open('events.json', "w") as f:
+        f.write(json.dumps(data, sort_keys=False).replace("'", "\""))
+        f.close()
+
+
+def get_user_events(username):
+    data = get_events()
+    for d in data:
+        if(d["username"].lower() == username.lower()):
+            events = d["events"][0][0]
+            return events
+    return ""
+
+
 def get_db():
     with open('db.json') as f:
         data = json.load(f)
@@ -17,11 +39,20 @@ def save_db(data):
         f.write(json.dumps(data, sort_keys=False).replace("'", "\""))
         f.close()
 
+def create_person_events(user_name):
+    data = get_events()
+    d = {}
+    d["user_name"] = user_name
+    d["events"] = []
+    data.append(d)
+    save_events(data)
 
+create_person_events("mustafa")
 def create_person(user_name, home):
     if(check_name_exist(user_name)):
         print("this name exists.")
         return False
+    create_person_events(user_name)
     data = get_db()
     # get person_1 VALUE
     default_person = json.loads(json.dumps(
@@ -49,13 +80,32 @@ def update_settings_for_user(username, settings_json):
     person_id = ""
 
     for d in data:
-        if(data[d]["user_name"].lower() == name.lower()):
+        if(data[d]["user_name"].lower() == username.lower()):
             user_json = data[d]
             person_id = d
             break
     data[person_id]["settings"] = settings_json
     save_db(data)
     return data[person_id]
+
+
+def update_events_for_user(username, events_json):
+    if(not(check_name_exist(username))):
+        response = {}
+        response["Error"] = "user not found"
+        return response
+    user_json = {}
+    data = get_events()
+
+    for d in data:
+        if(d["user_name"].lower() == username.lower()):
+            d["events"] = events_json
+            user_json = d
+            save_events(data)
+            return user_json
+            break
+    
+    
 
 
 def get_settings_for_user(user_name):
@@ -212,7 +262,7 @@ def identify_face_api_with_binary(filename):
     except:
         return "Person Couldn't Find"
     user_name = get_name(personId)
-    return user_name
+    return user_name, confidence
 
 
 def detect_face_api_with_binary(filename):
