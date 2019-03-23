@@ -25,8 +25,11 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.List;
 
 
 public class SettingsActivity extends Activity implements View.OnClickListener{
@@ -35,12 +38,21 @@ public class SettingsActivity extends Activity implements View.OnClickListener{
     private boolean time_module_enable_bool, weather_module_enable_bool,date_module_enable_bool;
     private String username, timeTxtSize, weatherTxtSize,dateTxtSize;
     private boolean hour24_enable,celcius_enable;
+    private String[] ename=new String[15];
+    private String[] edate=new String[15];
     JSONObject settings= new JSONObject();
+    JSONObject calendar=new JSONObject();
+    private List<String> resultEvents;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+
+
 
         //////////////////// ONLY FIRST TIME SHOW REGISTER PAGE ///////////////////////////////
         Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
@@ -56,6 +68,23 @@ public class SettingsActivity extends Activity implements View.OnClickListener{
                 .putBoolean("isFirstRun", false).commit();
 
         //////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+        Intent i2= new Intent(this,CalendarActivity.class);
+
+        startActivityForResult(i2,1);
+
+
+
+
+
+
+
+
+
 
 
         Intent intent = getIntent();
@@ -219,6 +248,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener{
 
             case R.id.saveBtn:
                 settings=createJSON();
+                calendar=createJSON2();
 
 
                //new SendDeviceDetails().execute("http://biyosecure.westeurope.cloudapp.azure.com:5000/settings", settings.toString());
@@ -234,14 +264,25 @@ public class SettingsActivity extends Activity implements View.OnClickListener{
 
 */
                 String jsonStr = settings.toString();
+                String jsonCal= calendar.toString();
                 System.out.println("jsonString101010: "+jsonStr);
                 Toast.makeText(getApplicationContext(), jsonStr, Toast.LENGTH_LONG).show();
-
+                Toast.makeText(getApplicationContext(), jsonCal, Toast.LENGTH_LONG).show();
                 break;
 
 
         }
 
+    }
+
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                resultEvents.set(0,data.getStringExtra("item1"));
+            }
+        }
     }
     public void decrement(TextView txtSizeView,TextView txtSize) {
 
@@ -317,6 +358,9 @@ public class SettingsActivity extends Activity implements View.OnClickListener{
             e.printStackTrace();
         }
 
+
+
+
         JSONArray jsonArray = new JSONArray();
 
         jsonArray.put(timeModuleObj);
@@ -331,7 +375,47 @@ public class SettingsActivity extends Activity implements View.OnClickListener{
             e.printStackTrace();
         }
 
+
+
         return settings;
+    }
+
+    private JSONObject createJSON2(){
+        ename[0]="Sinema";
+        edate[0]="2019-03-23T16:45:00.000+03:00";
+
+        ename[1]="Halısaha";
+        edate[1]="2019-03-24T18:45:00.000+03:00";
+
+        JSONArray calendarModuleObj = new JSONArray();
+        JSONArray array = new JSONArray();
+
+        JSONArray arr = new JSONArray();
+        try {
+
+
+            for(int i=0;i<2;i++) {
+                JSONObject item = new JSONObject();
+                item.put("event_name", ename[i]);
+                item.put("event_date", edate[i]);
+                array.put(item);
+            }
+            calendarModuleObj.put(array);
+            arr.put(calendarModuleObj);
+
+
+        } catch (JSONException e) {
+
+            e.printStackTrace();
+        }
+
+        try {
+            calendar.put("username", username);
+            calendar.put("events",arr);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return calendar;
     }
 
 
