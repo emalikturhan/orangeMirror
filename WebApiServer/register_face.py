@@ -12,7 +12,6 @@ app = Flask(__name__)
 upload_folder = "upload_folder"
 
 
-@app.route('/api/register_face', methods=['POST', 'GET'])
 def upload_file():
     start = time.time()
 
@@ -20,7 +19,7 @@ def upload_file():
         print(request.get_json())
         files = request.files
         print("start")
-        user_name = "test_person19"
+        user_name = "enes_1411"
         for f in files:
             file = request.files[f]
             counter = random.randint(1, 101)
@@ -50,5 +49,8 @@ def upload_file():
     return json.dumps(response)
 
 
-if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=5000)
+user_name = "enes_1411"
+
+filename = "enes_photo.jpg"
+db.add_face_face_api_personGroup_person_binary(user_name, filename)
+db.train_face_api_personGroup_person()

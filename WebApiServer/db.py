@@ -158,6 +158,7 @@ def add_face_face_api_personGroup_person(user_name, face_url):
 
 def add_face_face_api_personGroup_person_binary(user_name, filename):
     person_id = get_person_id(user_name)
+    print(person_id)
     url = "https://westeurope.api.cognitive.microsoft.com/face/v1.0/persongroups/4567/persons/" + \
         person_id+"/persistedFaces"
     photo_name = filename
@@ -167,6 +168,7 @@ def add_face_face_api_personGroup_person_binary(user_name, filename):
         "Ocp-Apim-Subscription-Key": "c5e2d62a223946ca9e3f35b3fef75cef"
     }
     r = requests.post(url=url, data=payload, headers=headers)
+    print(r.text)
 
 
 def get_photo_name(user_name):
@@ -219,7 +221,6 @@ def identify_face_api(face_url):
 
 
 def get_person_id(username):
-
     if(not(check_name_exist(username))):
         response = {}
         response["Error"] = "user not found"
@@ -227,11 +228,10 @@ def get_person_id(username):
     user_json = {}
     data = get_db()
     person_id = ""
-
     for d in data:
         if(data[d]["user_name"].lower() == username.lower()):
             user_json = data[d]
-            person_id = d
+            person_id = data[d]["personId"]
             break
     return person_id
 
