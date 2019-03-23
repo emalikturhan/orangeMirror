@@ -61,6 +61,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -208,6 +209,7 @@ public class Camera2Fragment extends Fragment implements
     private int mFlashState = 0;
 
     private boolean mFlashSupported;
+    TextView textView;
 
     //widgets
     private RelativeLayout mStillshotContainer, mFlashContainer, mSwitchOrientationContainer,
@@ -216,7 +218,6 @@ public class Camera2Fragment extends Fragment implements
     private DrawableImageView mStillshotImageView;
     private ImageButton mTrashIcon, mFlashIcon;
     private VerticalSlideColorPicker mVerticalSlideColorPicker;
-    private Button identify;
 
 
 
@@ -243,6 +244,7 @@ public class Camera2Fragment extends Fragment implements
         view.findViewById(R.id.save_stillshot).setOnClickListener(this);
         view.findViewById(R.id.init_sticker_icon).setOnClickListener(this);
 
+        textView = view.findViewById(R.id.textView);
         mTrashContainer = view.findViewById(R.id.trash_container);
         mTrashIcon = view.findViewById(R.id.trash);
         mFlashIcon = view.findViewById(R.id.flash_toggle);
@@ -259,13 +261,11 @@ public class Camera2Fragment extends Fragment implements
         mFlashContainer = view.findViewById(R.id.flash_container);
         mSwitchOrientationContainer = view.findViewById(R.id.switch_orientation_container);
         mCaptureBtnContainer = view.findViewById(R.id.capture_button_container);
-        identify = view.findViewById(R.id.identify);
         mTextureView = view.findViewById(R.id.texture);
         mFlashIcon.setOnClickListener(this);
         mTrashIcon.setOnClickListener(this);
         mCloseStillshotContainer.setOnClickListener(this);
         mUndoContainer.setOnClickListener(this);
-        identify.setOnClickListener(this);
         mStillshotImageView.setOnTouchListener(this);
         mTextureView.setOnTouchListener(this);
 
@@ -280,12 +280,7 @@ public class Camera2Fragment extends Fragment implements
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.identify: {
-                if (!mIsImageAvailable) {
-                    face_identify_button();
-                    break;
-                }
-            }
+
             case R.id.stillshot: {
                 if(!mIsImageAvailable){
                     Log.d(TAG, "onClick: taking picture.");
@@ -316,7 +311,8 @@ public class Camera2Fragment extends Fragment implements
             }
 
             case R.id.save_stillshot:{
-                saveCapturedStillshotToDisk();
+                face_identify_button();
+                //saveCapturedStillshotToDisk();
                 //post photo
                 break;
             }
@@ -582,6 +578,8 @@ public class Camera2Fragment extends Fragment implements
         String response = String.valueOf(new UploadFileAsync().execute(upLoadServerUri,filepath,username));
         System.out.println(response);
         System.out.print("aa");
+        TextView atextView = textView;
+        atextView.setText(response);
 
     }
     private class UploadFileAsync extends AsyncTask<String, Void, String> {
