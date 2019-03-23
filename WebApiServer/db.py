@@ -39,15 +39,20 @@ def save_db(data):
         f.write(json.dumps(data, sort_keys=False).replace("'", "\""))
         f.close()
 
+
 def create_person_events(user_name):
     data = get_events()
     d = {}
+    default_events = json.loads(json.dumps(
+        data[0]["events"], sort_keys=False).replace("'", "\""))
     d["user_name"] = user_name
-    d["events"] = []
+    d["events"] = default_events
     data.append(d)
     save_events(data)
 
-create_person_events("mustafa")
+
+
+
 def create_person(user_name, home):
     if(check_name_exist(user_name)):
         print("this name exists.")
@@ -104,8 +109,6 @@ def update_events_for_user(username, events_json):
             save_events(data)
             return user_json
             break
-    
-    
 
 
 def get_settings_for_user(user_name):
