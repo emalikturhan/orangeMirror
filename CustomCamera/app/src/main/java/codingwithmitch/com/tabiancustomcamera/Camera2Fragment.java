@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -215,6 +216,7 @@ public class Camera2Fragment extends Fragment implements
     private DrawableImageView mStillshotImageView;
     private ImageButton mTrashIcon, mFlashIcon;
     private VerticalSlideColorPicker mVerticalSlideColorPicker;
+    private Button identify;
 
 
 
@@ -257,13 +259,13 @@ public class Camera2Fragment extends Fragment implements
         mFlashContainer = view.findViewById(R.id.flash_container);
         mSwitchOrientationContainer = view.findViewById(R.id.switch_orientation_container);
         mCaptureBtnContainer = view.findViewById(R.id.capture_button_container);
+        identify = view.findViewById(R.id.identify);
         mTextureView = view.findViewById(R.id.texture);
-
         mFlashIcon.setOnClickListener(this);
         mTrashIcon.setOnClickListener(this);
         mCloseStillshotContainer.setOnClickListener(this);
         mUndoContainer.setOnClickListener(this);
-
+        identify.setOnClickListener(this);
         mStillshotImageView.setOnTouchListener(this);
         mTextureView.setOnTouchListener(this);
 
@@ -278,6 +280,12 @@ public class Camera2Fragment extends Fragment implements
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.identify: {
+                if (!mIsImageAvailable) {
+                    face_identify_button();
+                    break;
+                }
+            }
             case R.id.stillshot: {
                 if(!mIsImageAvailable){
                     Log.d(TAG, "onClick: taking picture.");
@@ -567,13 +575,29 @@ public class Camera2Fragment extends Fragment implements
     }
 
 
+    public void face_identify_button(){
+        String filepath = ""+getActivity().getExternalFilesDir(null) ;
+        String username = "mustafa";
+        String upLoadServerUri = "http://192.168.0.22:3999/api/photo";
+        String response = String.valueOf(new UploadFileAsync().execute(upLoadServerUri,filepath,username));
+        System.out.println(response);
+        System.out.print("aa");
+
+    }
     private class UploadFileAsync extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
-
+            String username = "";
             try {
-                String sourceFileUri = params[0];
+                String upLoadServerUri = params[0];
+                //String upLoadServerUri = "http://192.168.0.22:3999/api/photo";
+                String sourceFileUri = params[1];
+                if(params.length > 2){
+                    username = params[2];
+                }
+
+
 
                 HttpURLConnection conn = null;
                 DataOutputStream dos = null;
@@ -588,7 +612,6 @@ public class Camera2Fragment extends Fragment implements
                 if (sourceFile.isFile()) {
 
                     try {
-                        String upLoadServerUri = "http://192.168.0.22:3999/api/photo";
 
                         // open a URL connection to the Servlet
                         FileInputStream fileInputStream = new FileInputStream(
@@ -1728,6 +1751,7 @@ public class Camera2Fragment extends Fragment implements
         mBackgroundHandler.post(imageSaver);
     }
 
+
     private void displayCapturedImage(){
         Log.d(TAG, "displayCapturedImage: displaying stillshot image.");
         final Activity activity = getActivity();
@@ -1797,10 +1821,7 @@ public class Camera2Fragment extends Fragment implements
                 }
             });
         }
-        String filepath = ""+getActivity().getExternalFilesDir(null) ;
 
-        new background().execute(filepath);
-        new UploadFileAsync().execute(filepath);
     }
 
     private void showStillshotContainer(){

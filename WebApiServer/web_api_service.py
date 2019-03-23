@@ -66,7 +66,7 @@ def settings():
     else:
         data = db.get_db()
         return json.dumps(data, indent=4, sort_keys=False)
-    
+
     return json.dumps(content, indent=4, sort_keys=False)
 
 
@@ -75,6 +75,7 @@ def upload_file():
     start = time.time()
 
     if request.method == 'POST':
+        print(request.get_json())
         files = request.files
         user_name = "test_person19"
         for f in files:
@@ -100,6 +101,13 @@ def upload_file():
     finish = time.time()
     print(finish-start)
     return json.dumps(response)
+
+
+@app.route('/api/photo', methods=['POST', 'GET'])
+def user_events():
+    if request.method == 'POST':
+        content = request.get_json()
+        user_name = content["user_name"]
 
 
 if __name__ == "__main__":
