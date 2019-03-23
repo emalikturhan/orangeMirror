@@ -110,5 +110,12 @@ def user_events():
         user_name = content["user_name"]
 
 
+@app.route('/api/test', methods=['POST', 'GET'])
+def user_events():
+    if request.method == 'POST':
+        content = request.get_json()
+    return json.dumps(content)
+
+
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=3999)
