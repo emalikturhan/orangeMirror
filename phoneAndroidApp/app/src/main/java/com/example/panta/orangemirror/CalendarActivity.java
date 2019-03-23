@@ -15,8 +15,9 @@ import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.calendar.CalendarScopes;
 import android.accounts.AccountManager;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
+import android.content.Context;
+
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
@@ -27,13 +28,19 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.app.Activity;
+
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ArrayList;
+import java.lang.String;
+
 
 public class CalendarActivity extends Activity {
 
 
     // Google Calendar API servis objeleri kullanılarak API'ye erişildi
+
 
 
 
@@ -91,7 +98,7 @@ public class CalendarActivity extends Activity {
 
         mService = new com.google.api.services.calendar.Calendar.Builder(
                 transport, jsonFactory, credential)
-                .setApplicationName("mirrorAndroidApp")
+                .setApplicationName("orangeMirror")
                 .build();
     }
 
@@ -187,6 +194,7 @@ public class CalendarActivity extends Activity {
 
 
     public void updateResultsText(final List<String> dataStrings) {
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -197,6 +205,8 @@ public class CalendarActivity extends Activity {
                 } else {
                     mStatusText.setText("Google Calendar API kullanarak veriler yükleniyor...");
                     mResultsText.setText(TextUtils.join("\n\n", dataStrings));
+
+
                 }
             }
         });

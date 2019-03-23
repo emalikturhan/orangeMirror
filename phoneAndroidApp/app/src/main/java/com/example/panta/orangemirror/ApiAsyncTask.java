@@ -59,7 +59,7 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
                 (String.format("%s ", "Tarih : " + now + "\n")));
 
         Events events = cActivity.mService.events().list("primary")
-                .setMaxResults(15)
+                .setMaxResults(10)
                 .setTimeMin(now)
                 .setOrderBy("startTime")
                 .setSingleEvents(true)
@@ -74,6 +74,7 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
             eventStrings.add(
                     String.format("%s (%s)", "Etkinlik : " + event.getSummary() +"\n", start));
         }
+
         return eventStrings;
     }
 
