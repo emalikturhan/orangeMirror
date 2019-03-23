@@ -111,7 +111,7 @@ def user_events():
 
 
 @app.route('/api/test', methods=['POST', 'GET'])
-def user_events():
+def user_test():
     if request.method == 'POST':
         content = request.get_json()
     return json.dumps(content)
